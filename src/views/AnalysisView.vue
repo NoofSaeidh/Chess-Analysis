@@ -27,7 +27,8 @@ function hasCachedDataForUsername(username: string): boolean {
   return (
     loadedUsername === normalizedUsername &&
     currentUsername === normalizedUsername &&
-    userStore.userError === null
+    userStore.userError === null &&
+    userStore.gamesError === null
   )
 }
 

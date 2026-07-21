@@ -69,10 +69,31 @@ describe('AnalysisView', () => {
     store.games = []
     store.gamesUsername = 'alice'
 
-    mount(AnalysisView, { props: { username: 'Alice' } })
-    await new Promise((r) => setTimeout(r, 20))
+    const wrapper = mount(AnalysisView, { props: { username: 'Alice' } })
+    await wrapper.vm.$nextTick()
 
     expect(lichessApi.getUser).not.toHaveBeenCalled()
     expect(lichessApi.getUserGames).not.toHaveBeenCalled()
+  })
+
+  it('refetches when cached data has a games error', async () => {
+    vi.mocked(lichessApi.getUser).mockResolvedValue(makeUser())
+    vi.mocked(lichessApi.getUserGames).mockResolvedValue([])
+
+    const store = useUserStore()
+    store.user = makeUser()
+    store.games = []
+    store.gamesUsername = 'alice'
+    store.gamesError = 'Network error'
+
+    const wrapper = mount(AnalysisView, { props: { username: 'Alice' } })
+    await vi.waitFor(() => {
+      expect(lichessApi.getUser).toHaveBeenCalledWith('Alice')
+      expect(lichessApi.getUserGames).toHaveBeenCalledWith('Alice', { max: 100, opening: true })
+    })
+    await wrapper.vm.$nextTick()
+
+    expect(lichessApi.getUser).toHaveBeenCalledTimes(1)
+    expect(lichessApi.getUserGames).toHaveBeenCalledTimes(1)
   })
 })

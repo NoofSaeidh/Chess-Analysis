@@ -30,14 +30,14 @@ export const useUserStore = defineStore('user', () => {
     isLoadingGames.value = true
     gamesError.value = null
     games.value = []
-    gamesUsername.value = null
     try {
       games.value = await lichessApi.getUserGames(username, { max, opening: true })
+      gamesUsername.value = normalizedUsername
     } catch (error) {
       gamesError.value = error instanceof Error ? error.message : 'Unknown error'
       games.value = []
+      gamesUsername.value = null
     } finally {
-      gamesUsername.value = normalizedUsername
       isLoadingGames.value = false
     }
   }

@@ -101,7 +101,7 @@ describe('useUserStore', () => {
       await store.fetchGames('TestUser')
       expect(store.games).toHaveLength(0)
       expect(store.gamesError).toBe('Failed')
-      expect(store.gamesUsername).toBe('testuser')
+      expect(store.gamesUsername).toBeNull()
     })
   })
 
