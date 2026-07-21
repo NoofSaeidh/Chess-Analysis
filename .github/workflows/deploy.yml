@@ -25,6 +25,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
 
       - uses: actions/setup-node@v4
         with:
@@ -35,7 +37,7 @@ jobs:
         run: npm ci
 
       - name: Build
-        run: npx vite build --base=/Chess-Analysis/
+        run: npm run build -- --base=/Chess-Analysis/
 
       - name: Copy index.html to 404.html for SPA routing
         run: cp dist/index.html dist/404.html
