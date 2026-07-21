@@ -92,6 +92,7 @@ describe('useUserStore', () => {
       await store.fetchGames('TestUser')
       expect(store.games).toEqual(games)
       expect(store.gamesError).toBeNull()
+      expect(store.gamesUsername).toBe('testuser')
     })
 
     it('sets gamesError on failure', async () => {
@@ -100,6 +101,7 @@ describe('useUserStore', () => {
       await store.fetchGames('TestUser')
       expect(store.games).toHaveLength(0)
       expect(store.gamesError).toBe('Failed')
+      expect(store.gamesUsername).toBe('testuser')
     })
   })
 
@@ -114,6 +116,7 @@ describe('useUserStore', () => {
       store.reset()
       expect(store.user).toBeNull()
       expect(store.games).toHaveLength(0)
+      expect(store.gamesUsername).toBeNull()
       expect(store.userError).toBeNull()
       expect(store.gamesError).toBeNull()
     })

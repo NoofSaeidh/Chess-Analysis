@@ -3,6 +3,7 @@ import { mount } from '@vue/test-utils'
 import { setActivePinia, createPinia } from 'pinia'
 import AnalysisView from '@/views/AnalysisView.vue'
 import { lichessApi } from '@/api/lichess'
+import { useUserStore } from '@/stores/userStore'
 import type { LichessUser } from '@/types/lichess'
 
 vi.mock('@/api/lichess', () => ({
@@ -60,5 +61,18 @@ describe('AnalysisView', () => {
     await new Promise((r) => setTimeout(r, 50))
     await wrapper.vm.$nextTick()
     expect(wrapper.text()).toContain('User not found')
+  })
+
+  it('reuses cached store data for the same username', async () => {
+    const store = useUserStore()
+    store.user = makeUser()
+    store.games = []
+    store.gamesUsername = 'alice'
+
+    mount(AnalysisView, { props: { username: 'Alice' } })
+    await new Promise((r) => setTimeout(r, 20))
+
+    expect(lichessApi.getUser).not.toHaveBeenCalled()
+    expect(lichessApi.getUserGames).not.toHaveBeenCalled()
   })
 })

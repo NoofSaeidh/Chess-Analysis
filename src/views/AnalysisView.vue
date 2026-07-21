@@ -19,7 +19,22 @@ const props = defineProps<{
 const userStore = useUserStore()
 const analysisStore = useAnalysisStore()
 
+function hasCachedDataForUsername(username: string): boolean {
+  const normalizedUsername = username.trim().toLowerCase()
+  const loadedUsername = userStore.gamesUsername
+  const currentUsername = userStore.user?.username.toLowerCase()
+
+  return (
+    loadedUsername === normalizedUsername &&
+    currentUsername === normalizedUsername &&
+    userStore.userError === null
+  )
+}
+
 async function loadData(username: string): Promise<void> {
+  if (hasCachedDataForUsername(username)) {
+    return
+  }
   analysisStore.reset()
   await userStore.fetchUser(username)
   if (userStore.userError === null) {

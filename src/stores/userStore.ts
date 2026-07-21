@@ -6,6 +6,7 @@ import type { LichessGame, LichessUser } from '@/types/lichess'
 export const useUserStore = defineStore('user', () => {
   const user = ref<LichessUser | null>(null)
   const games = ref<LichessGame[]>([])
+  const gamesUsername = ref<string | null>(null)
   const isLoadingUser = ref(false)
   const isLoadingGames = ref(false)
   const userError = ref<string | null>(null)
@@ -25,15 +26,18 @@ export const useUserStore = defineStore('user', () => {
   }
 
   async function fetchGames(username: string, max = 100): Promise<void> {
+    const normalizedUsername = username.trim().toLowerCase()
     isLoadingGames.value = true
     gamesError.value = null
     games.value = []
+    gamesUsername.value = null
     try {
       games.value = await lichessApi.getUserGames(username, { max, opening: true })
     } catch (error) {
       gamesError.value = error instanceof Error ? error.message : 'Unknown error'
       games.value = []
     } finally {
+      gamesUsername.value = normalizedUsername
       isLoadingGames.value = false
     }
   }
@@ -41,6 +45,7 @@ export const useUserStore = defineStore('user', () => {
   function reset(): void {
     user.value = null
     games.value = []
+    gamesUsername.value = null
     userError.value = null
     gamesError.value = null
     isLoadingUser.value = false
@@ -50,6 +55,7 @@ export const useUserStore = defineStore('user', () => {
   return {
     user,
     games,
+    gamesUsername,
     isLoadingUser,
     isLoadingGames,
     userError,
