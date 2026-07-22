@@ -107,7 +107,7 @@ describe('useAnalysisStore', () => {
     expect(analysisStore.analyses[0]?.game.speed).toBe('rapid')
   })
 
-  it('reset clears selectedPerfType', async () => {
+  it('reset clears selectedPerfType', () => {
     const analysisStore = useAnalysisStore()
     analysisStore.selectPerfType('blitz')
     analysisStore.reset()

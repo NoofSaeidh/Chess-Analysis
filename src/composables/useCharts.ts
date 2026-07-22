@@ -1,6 +1,6 @@
 import { computed } from 'vue'
 import { useAnalysisStore } from '@/stores/analysisStore'
-import type { OpeningStats, SpeedStats } from '@/types/analysis'
+import type { SpeedStats } from '@/types/analysis'
 import type { GameColor } from '@/types/lichess'
 
 export interface ChartDataset {
@@ -95,7 +95,7 @@ export function useCharts(): {
     if (summary === null || summary.topOpenings.length === 0) {
       return null
     }
-    const openings = summary.topOpenings.slice(0, 8) as OpeningStats[]
+    const openings = summary.topOpenings.slice(0, 8)
     return {
       labels: openings.map((o) => o.eco),
       datasets: [

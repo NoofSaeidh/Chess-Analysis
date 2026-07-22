@@ -29,7 +29,7 @@ function makeUser(): LichessUser {
   }
 }
 
-function makeGame(id: string, winner: 'white' | 'black' | undefined = 'white'): LichessGame {
+function makeGame(id: string, winner: 'white' | 'black' | undefined): LichessGame {
   return {
     id,
     rated: true,

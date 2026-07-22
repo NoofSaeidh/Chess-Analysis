@@ -54,4 +54,15 @@ export default defineConfigWithVueTs(
       'vue/require-typed-ref': 'error',
     },
   },
+  {
+    name: 'app/test-overrides',
+    files: ['src/**/__tests__/**/*.ts', 'src/**/*.spec.ts', 'src/**/*.test.ts'],
+    rules: {
+      // Test files commonly call mock methods via expect(mock).toHaveBeenCalledWith()
+      // which triggers unbound-method but is safe and idiomatic in test code.
+      '@typescript-eslint/unbound-method': 'off',
+      // Test helper functions and vi.mock factory callbacks don't need explicit return types.
+      '@typescript-eslint/explicit-function-return-type': 'off',
+    },
+  },
 )

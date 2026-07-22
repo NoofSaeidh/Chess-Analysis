@@ -15,8 +15,12 @@ withDefaults(
 )
 
 function winRateClass(rate: number): string {
-  if (rate >= 60) return 'win-rate--high'
-  if (rate >= 40) return 'win-rate--mid'
+  if (rate >= 60) {
+    return 'win-rate--high'
+  }
+  if (rate >= 40) {
+    return 'win-rate--mid'
+  }
   return 'win-rate--low'
 }
 </script>

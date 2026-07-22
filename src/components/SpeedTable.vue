@@ -27,8 +27,7 @@ const speedOrder = [
 const sortedSpeeds = computed(() =>
   [...props.speeds].sort(
     (a: SpeedStats, b: SpeedStats) =>
-      speedOrder.indexOf(a.speed as (typeof speedOrder)[number]) -
-      speedOrder.indexOf(b.speed as (typeof speedOrder)[number]),
+      speedOrder.indexOf(a.speed) - speedOrder.indexOf(b.speed),
   ),
 )
 </script>
