@@ -201,7 +201,7 @@ describe('computeOpeningStats', () => {
 
   it('respects topN limit', () => {
     const analyses: GameAnalysis[] = Array.from({ length: 15 }, (_, i) =>
-      makeAnalysis({ game: makeGame({ opening: { eco: `A${String(i).padStart(2, '0')}`, name: `Opening ${i}`, ply: 2 } }) }),
+      makeAnalysis({ game: makeGame({ opening: { eco: `A${String(i).padStart(2, '0')}`, name: `Opening ${String(i)}`, ply: 2 } }) }),
     )
     const result = computeOpeningStats(analyses, 5)
     expect(result).toHaveLength(5)

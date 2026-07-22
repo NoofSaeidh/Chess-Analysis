@@ -42,7 +42,7 @@ export function getPlayerColor(game: LichessGame, username: string): GameColor |
 }
 
 export function getGameResult(game: LichessGame, playerColor: GameColor): GameResult {
-  if (game.winner === undefined || game.winner === null) {
+  if (game.winner === undefined) {
     return 'draw'
   }
   return game.winner === playerColor ? 'win' : 'loss'

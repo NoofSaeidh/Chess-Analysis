@@ -1,10 +1,11 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import axios from 'axios'
+import type { AxiosStatic } from 'axios'
 import { LichessApiClient, LichessApiError } from '@/api/lichess'
 import type { LichessUser, LichessGame } from '@/types/lichess'
 
 vi.mock('axios', async () => {
-  const actual = await vi.importActual<typeof import('axios')>('axios')
+  const actual = await vi.importActual<{ default: AxiosStatic }>('axios')
   return {
     default: {
       ...actual.default,

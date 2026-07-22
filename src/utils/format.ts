@@ -14,18 +14,20 @@ export function formatPlayTime(seconds: number): string {
   const hours = Math.floor(seconds / 3600)
   const minutes = Math.floor((seconds % 3600) / 60)
   if (hours > 0) {
-    return `${hours}h ${minutes}m`
+    return `${hours.toString()}h ${minutes.toString()}m`
   }
-  return `${minutes}m`
+  return `${minutes.toString()}m`
 }
 
 export function formatClockTime(seconds: number): string {
   const minutes = Math.floor(seconds / 60)
   const remainingSeconds = seconds % 60
   if (minutes > 0) {
-    return remainingSeconds > 0 ? `${minutes}+${remainingSeconds}` : `${minutes}m`
+    return remainingSeconds > 0
+      ? `${minutes.toString()}+${remainingSeconds.toString()}`
+      : `${minutes.toString()}m`
   }
-  return `${remainingSeconds}s`
+  return `${remainingSeconds.toString()}s`
 }
 
 export function capitalize(str: string): string {

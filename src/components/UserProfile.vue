@@ -11,7 +11,7 @@ const props = defineProps<{
 
 const displayName = computed(() => {
   const { profile, username } = props.user
-  if (profile?.firstName !== undefined && profile?.lastName !== undefined) {
+  if (profile?.firstName !== undefined && profile.lastName !== undefined) {
     return `${profile.firstName} ${profile.lastName}`
   }
   return profile?.firstName ?? username
